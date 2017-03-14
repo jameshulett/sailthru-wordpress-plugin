@@ -284,7 +284,7 @@ class Sailthru_Horizon {
 				$params = array();
 				$params['sailthru_customer_id'] = $customer_id;
 
-				wp_enqueue_script( 'personalize_js', '//ak.sail-horizon.com/onsite/personalize.v0.0.3.min.js', array( 'scriptaculous' ) );
+				wp_enqueue_script( 'personalize_js', '//ak.sail-horizon.com/onsite/personalize.v0.0.4.min.js', array( 'jquery' ) );
 				add_action('wp_footer', array( $this, 'sailthru_client_personalize' ), 10);
 
 			} else {
