@@ -466,8 +466,9 @@ class Sailthru_Horizon {
 	 */
 	function sailthru_horizon_meta_tags() {
 
+
 		// only do this on pages and posts
-		if ( ! is_single() ) {
+		if ( ! is_single() && ! is_page() ) {
 			return;
 		}
 
@@ -598,7 +599,7 @@ class Sailthru_Horizon {
 			'sailthru-post-data',
 			__( 'Sailthru Post Data', 'sailthru' ),
 			array( $this, 'post_metabox_display' ),
-			'post',
+			array ('post', 'page'),
 			'side',
 			'high'
 		);
