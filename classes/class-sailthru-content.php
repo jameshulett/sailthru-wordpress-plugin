@@ -7,31 +7,6 @@ class Sailthru_Content_Settings {
 		add_action( 'admin_init', array( $this, 'init_settings'  ), 11 );
 	}
 
-	/**
-	 * Fired when the plugin is activated.
-	 *
-	 * @param boolean $network_wide True if WPMU superadmin
-	 *    uses "Network Activate" action, false if WPMU is
-	 *    disabled or plugin is activated on an individual blog
-	 */
-	public static function activate( $network_wide ) {
-
-		if ( ! current_user_can( 'activate_plugins' ) ) {
-			return;
-		}
-
-		// Only do this if the sailthru_content option does not exist. This will be on the first time that the plugin is updated.
-		if ( false === get_option( 'sailthru_content' ) ) {
-			
-			$post_type_args = ['public' => true];
-        	$post_types = get_post_types( $post_type_args, 'names');
-        	var_dump($post_types);
-        	update_option('sailthru_content', ['sailthru_content_post_type' => $post_types] );
-		}        
-
-	} // end activate
-
-
 	public function init_settings() {
 
 		add_settings_section(
