@@ -3,6 +3,9 @@
 ## v3.4.4 (2020-07-01)
 Fixed bug where “Scout from Sailthru” page was created for all sites, rather than just Scout-enabled sites.
 
+### HarperCollins Customization
+Updated user source to include CASL code and form URL
+
 ## v3.4.3 (2020-04-07)
 Fixed bug where Sailthru onsite JS would sometimes fail to initialize due to asynchronous loading of scripts
 
