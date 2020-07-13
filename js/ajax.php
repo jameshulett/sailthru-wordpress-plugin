@@ -84,9 +84,14 @@ switch( $_POST['sailthru_action'] )
 
 			}
 
-
-		$options['vars']['source'] = get_bloginfo('url');
-
+		$source_string = filter_var(
+				$_POST['CASL Source Code'] ?? $_POST['CASL_Source_Code'],
+				FILTER_SANITIZE_STRING
+			)
+			. ", " . 
+			filter_var($_SERVER['HTTP_REFERER'], FILTER_SANITIZE_URL) ?? get_bloginfo('url');
+			
+		$options['vars']['source'] = $source_string;
 
 		$return['data'] = array(
 			'email'	=> $email,
