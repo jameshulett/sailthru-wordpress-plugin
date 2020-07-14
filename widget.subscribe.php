@@ -327,14 +327,17 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 			$options = array();
 
 			// set the source
-			if ( isset( $_POST['source'] ) && ! empty( $_POST['source'] ) ) {
-				$source = sanitize_text_field( $_POST['source'] );
-			} else {
-				$source = get_bloginfo( 'url' );
-			}
+			$casl_code = $_POST['CASL_Source_Code']
+				?? $_POST['CASL Source Code']
+				?? $_POST['CASL Code']
+				?? $_POST['casl']
+				?? $_POST['source'];
+			$referrer = $_SERVER['HTTP_REFERER'] ?? get_bloginfo( 'url' );
+
+			$source = sanitize_text_field( $casl_code . "," . $referrer );
 
 			// initialize vars with source.
-			$vars         = array( 'source' => $source );
+			$vars         = array( 'source' => $source, 'casl_source_code' => $casl_code );
 			$customfields = get_option( 'sailthru_forms_options' );
 			$key          = get_option( 'sailthru_forms_key' );
 
@@ -432,6 +435,10 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 				} catch ( Exception $e ) {
 					write_log( $e );
 				}
+			}
+
+			if(!empty($profile)) {
+				unset($options['vars']['source']); // Retain source for existing subscribers
 			}
 
 			$profile_data = array(
