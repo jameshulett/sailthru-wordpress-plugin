@@ -9,7 +9,22 @@
 	$title         = empty( $instance['title'] ) ? ' ' : apply_filters( 'widget_title', esc_attr( $instance['title'] ) );
 	$source        = empty( $instance['source'] ) ? get_bloginfo( 'url' ) : esc_attr( $instance['source'] );
 	$lo_event_name = empty( $instance['lo_event_name'] ) ? '' : esc_attr( $instance['lo_event_name'] );
-	$reset_optout_status = empty( $instance['reset_optout_status'] ) ? '' : esc_attr( $instance['reset_optout_status'] );
+  $reset_optout_status = empty( $instance['reset_optout_status'] ) ? '' : esc_attr( $instance['reset_optout_status'] );
+  
+  function sanitize_css($subject) {
+    return preg_replace("[^A-Za-z0-9\(\)\%\.]", "", $subject);
+  }
+
+  function attrs_to_css_array($attributes) {
+    $css = [];
+    foreach($attributes as $label => $value) {
+      list($is_style_attr, $tag, $attr) = explode("-", $label, 3);
+      if($is_style_attr !== "style") continue;
+      $css[sanitize_css($tag)][] = sanitize_css("$attr: $value");
+    }
+    return $css;
+  }
+      
 
 if ( ! empty( $instance['sailthru_list'] ) ) {
 	if ( is_array( $instance['sailthru_list'] ) ) {
@@ -27,8 +42,15 @@ if ( ! empty( $instance['sailthru_list'] ) ) {
 	// nonce
 	$nonce = wp_create_nonce( 'add_subscriber_nonce' );
 
-	?>
-	<div class="sailthru-signup-widget">
+?>
+
+  <style>
+  <?php foreach(attrs_to_css_array($instance) as $tag => $rules) {
+    echo ".sailthru-signup-widget $tag { ".implode("; ", $rules). " }\n";
+  } ?>
+  </style>
+  
+  <div class="sailthru-signup-widget">
 		<span class="sailthru-signup-widget-close"><a href="#sailthru-signup-widget">Close</a></span>
 		<div class="sailthru_form">
 
