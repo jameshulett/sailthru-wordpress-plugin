@@ -105,7 +105,11 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 
 		if ( empty( $instance['sailthru_list'] ) ) {
 			return false;
-		}
+    }
+
+    $cache_key = sanitize_key('sailthru_redirect_'.get_permalink());
+    $redirect_path = sanitize_key($instance['redirect']);
+    set_transient($cache_key, $redirect_path, MINUTE_IN_SECONDS * 4);
 
 		extract( $args, EXTR_SKIP );
 		if ( isset( $before_widget ) ) {
@@ -554,7 +558,14 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 			$result = array(
 				'success' => true,
 				'message' => 'User Subscribed',
-			);
+      );
+
+      $cache_key = sanitize_key('sailthru_redirect_'.wp_get_referer());
+      $redirect_path = get_transient($cache_key);
+      if(!empty($redirect_path)) {
+        $result['redirect'] = true;
+        $result['path'] = $redirect_path;
+      }
 
 			$this->return_response( $result );
 
