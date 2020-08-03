@@ -1,7 +1,7 @@
 <?php
 
 function sanitize_css($subject) {
-  return preg_replace("[^A-Za-z0-9\(\)\%\.]", "", $subject);
+  return preg_replace("[^A-Za-z0-9\(\)\%\.\#]", "", $subject);
 }
 
 function sailthru_attrs_to_css_array($attributes) {
@@ -108,7 +108,7 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
     }
 
     $cache_key = sanitize_key('sailthru_redirect_'.get_permalink());
-    $redirect_path = sanitize_key($instance['redirect']);
+    $redirect_path = esc_url($instance['redirect']);
     set_transient($cache_key, $redirect_path, MINUTE_IN_SECONDS * 4);
 
 		extract( $args, EXTR_SKIP );

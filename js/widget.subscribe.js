@@ -43,6 +43,8 @@
                 success: function (data, status) {
                     if (data.success == false) {
                         $('#' + form.attr('id') + " .sailthru-add-subscriber-errors").html(data.message);
+                    } else if (data.redirect == true) {
+                        window.location.pathname = data.path;
                     } else {
                         $('#sailthru-modal .sailthru-signup-widget-close').fadeIn();
                         $(form).html('');
