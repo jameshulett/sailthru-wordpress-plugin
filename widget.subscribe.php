@@ -1,5 +1,19 @@
 <?php
 
+function sanitize_css($subject) {
+  return preg_replace("[^A-Za-z0-9\(\)\%\.]", "", $subject);
+}
+
+function attrs_to_css_array($attributes) {
+  $css = [];
+  foreach($attributes as $label => $value) {
+    list($is_style_attr, $tag, $attr) = explode("-", $label, 3);
+    if($is_style_attr !== "style") continue;
+    $css[sanitize_css($tag)][] = sanitize_css("$attr: $value");
+  }
+  return $css;
+}
+
 function sailthru_attributes( $attribute_list ) {
 	if ( ! empty( $attribute_list ) ) {
 		$attributes = explode( ',', $attribute_list );
@@ -47,7 +61,8 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 	 * Instantiates the widget,
 	 * loads localization files, and includes necessary stylesheets and JavaScript.
 	 */
-	public function __construct() {
+  public function __construct() {
+    $this->form_id = 0;
 
 		// load plugin text domain
 		add_action( 'init', array( $this, 'load_widget_text_domain' ) );
@@ -96,7 +111,8 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 		if ( isset( $before_widget ) ) {
 			echo wp_kses_post( $before_widget );
 		}
-		include SAILTHRU_PLUGIN_PATH . 'views/widget.subscribe.display.php';
+    include SAILTHRU_PLUGIN_PATH . 'views/widget.subscribe.display.php';
+    $this->form_id++;
 		if ( isset( $after_widget ) ) {
 			echo wp_kses_post( $after_widget );
 		}
