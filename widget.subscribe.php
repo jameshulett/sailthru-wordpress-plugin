@@ -4,7 +4,7 @@ function sanitize_css($subject) {
   return preg_replace("[^A-Za-z0-9\(\)\%\.]", "", $subject);
 }
 
-function attrs_to_css_array($attributes) {
+function sailthru_attrs_to_css_array($attributes) {
   $css = [];
   foreach($attributes as $label => $value) {
     list($is_style_attr, $tag, $attr) = explode("-", $label, 3);

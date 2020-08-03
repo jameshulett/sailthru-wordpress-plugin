@@ -33,12 +33,12 @@ if ( ! empty( $instance['sailthru_list'] ) ) {
 ?>
 
   <style>
-  <?php foreach(attrs_to_css_array($instance) as $tag => $rules) {
-    echo ".sailthru-signup-widget-$form_id $tag { ".implode("; ", $rules). " }\n";
+  <?php foreach(sailthru_attrs_to_css_array($instance) as $tag => $rules) {
+    echo ".sailthru-signup-widget.form-$form_id $tag { ".implode("; ", $rules). " }\n";
   } ?>
   </style>
   
-  <div class="sailthru-signup-widget-<?= $form_id ?>">
+  <div class="sailthru-signup-widget form-<?= $form_id ?>">
 		<span class="sailthru-signup-widget-close"><a href="#sailthru-signup-widget">Close</a></span>
 		<div class="sailthru_form">
 
