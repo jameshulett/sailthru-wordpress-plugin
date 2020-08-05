@@ -355,13 +355,7 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 			$referrer = $_SERVER['HTTP_REFERER'] ?? get_bloginfo( 'url' );
 
       $source = sanitize_text_field( $casl_code . "," . $referrer );
-	  $casl_code = sanitize_text_field( $casl_code );
-	  $result = array(
-		'success' => false,
-		'message' => $casl_code,
-		);
-		$this->return_response($result);
-		return;
+  	  $casl_code = sanitize_text_field( $casl_code );
 
 			// initialize vars with source.
 			$vars         = array( 'source' => $source, 'casl_source_code' => $casl_code, "casl_$casl_code" => date("m/d/Y") );
