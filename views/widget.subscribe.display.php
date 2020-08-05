@@ -365,10 +365,7 @@ if ( ! empty( $instance['sailthru_list'] ) ) {
 
 				<?php
 					if ( ! empty( $sailthru['google_recaptcha_site_key'] ) && ! empty ( $sailthru['google_recaptcha_secret'] ) ) {
-						echo '<p class="captcha-disclaimer">
-						This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and
-						<a href="https://policies.google.com/terms">Terms of Service</a> apply.
-						</p>';
+						echo '<p style="font-size: .8rem">By submitting your email address, you understand that you will receive email communications from HarperCollins Christian Publishing (501 Nelson Place, Nashville, TN 37214 USA) providing information about products and services of HCCP and its affiliates. You may unsubscribe from these email communications at any time. If you have any questions, please review our <a href="http://www.harpercollinschristian.com/privacy">Privacy Policy</a> or email us at yourprivacy@harpercollins.com.</p>';
 					}
 				?>
 				<input type="hidden" name="sailthru_nonce" value="<?php echo esc_attr( $nonce) ; ?>" />
