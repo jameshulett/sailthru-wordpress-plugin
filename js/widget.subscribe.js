@@ -7,12 +7,11 @@
 			e.preventDefault();
 			var posTop = $(this).offset().top;
 			var modal = $( "#sailthru-modal");
-   		 	modal.css("top", '100px');
-   		 	modal.css("left", Math.max(0, (($(window).width() - $(modal).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+			modal.css("top", '100px');
+			modal.css("left", Math.max(0, (($(window).width() - $(modal).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
 
-   		 	$('.sailthru_shortcode_hidden .sailthru-signup-widget-close').show();
-   		 	modal.fadeIn();
-
+			$('.sailthru_shortcode_hidden .sailthru-signup-widget-close').show();
+			modal.fadeIn();
 		});
 
 		$('#sailthru-modal .sailthru-signup-widget-close').click(function(){
@@ -25,10 +24,10 @@
 			e.preventDefault();
 			var recaptcha = $("#sailthruToken");
 			var siteKey = $("#siteKey").val();
-		  	if (!recaptcha.val() && siteKey) {
+			if (!recaptcha.val() && siteKey) {
 				var token = await grecaptcha.execute(siteKey, {action: 'homepage'});
-			 	recaptcha.val(token);
-		  	}
+				recaptcha.val(token);
+			}
 
 			var user_input = $(this).serialize();
 			var form = $(this);
@@ -48,13 +47,13 @@
                     } else {
                         $('#sailthru-modal .sailthru-signup-widget-close').fadeIn();
                         $(form).html('');
-                        $(form).parent().find(".success").show();
+						$(form).parent().find(".success").show();
+						$(form).parent().find(".hide_toggle").hide();
                     }
                 }
-            } );
+            });
 
 		});
-
 
 	});
 }(jQuery));
