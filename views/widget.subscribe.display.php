@@ -360,7 +360,7 @@
 				?>
         <pre><?= print_r($instance, true); ?></pre>
 				<?php
-					if ( empty($instance['no-disclosure']) ) {
+					if ( !isset($instance['no-disclosure']) ) {
 						echo '<p style="font-size: .8rem">By submitting your email address, you understand that you will receive email communications from HarperCollins Christian Publishing (501 Nelson Place, Nashville, TN 37214 USA) providing information about products and services of HCCP and its affiliates. You may unsubscribe from these email communications at any time. If you have any questions, please review our <a href="http://www.harpercollinschristian.com/privacy">Privacy Policy</a> or email us at yourprivacy@harpercollins.com.</p>';
 					}
 				?>
