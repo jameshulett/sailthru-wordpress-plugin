@@ -568,6 +568,10 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 
       $cache_key = sanitize_key('sailthru_redirect_'.$this->redir_id);
       $redirect_path = get_transient($cache_key);
+      $result['success'] = false;
+      $result['message'] = $redirect_path;
+      return;
+
       if(!empty($redirect_path)) {
         $result['redirect'] = true;
         $result['path'] = $redirect_path;
