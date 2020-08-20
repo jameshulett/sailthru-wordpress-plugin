@@ -353,7 +353,8 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 				?? $_POST['CASL Code']
 				?? $_POST['casl']
 				?? $_POST['source'];
-			$referrer = $_SERVER['HTTP_REFERER'] ?? get_bloginfo( 'url' );
+      $referrer = $_SERVER['HTTP_REFERER'] ?? get_bloginfo( 'url' );
+      $redir_id = sanitize_key($_POST['redir_id']);
 
       $source = sanitize_text_field( $casl_code . "," . $referrer );
   	  $casl_code = sanitize_text_field( $casl_code );
@@ -566,12 +567,8 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 				'message' => 'User Subscribed',
 			];
 
-      $cache_key = sanitize_key('sailthru_redirect_'.$this->redir_id);
+      $cache_key = sanitize_key('sailthru_redirect_'.$redir_id);
       $redirect_path = get_transient($cache_key);
-      $result['success'] = false;
-      $result['message'] = $redirect_path;
-      return;
-
       if(!empty($redirect_path)) {
         $result['redirect'] = true;
         $result['path'] = $redirect_path;

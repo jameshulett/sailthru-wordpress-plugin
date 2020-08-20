@@ -30,10 +30,6 @@
 
 ?>
 
-  <pre syle="display: none;">
-    <?php echo print_r($this, true); ?>
-  </pre>
-
   <style>
   <?php foreach(sailthru_attrs_to_css_array($instance) as $tag => $rules) {
     echo ".sailthru-signup-widget.form-$form_id $tag { ".implode("; ", $rules). " }\n";
@@ -74,7 +70,7 @@
 			<form method="post" action="#" class="sailthru-add-subscriber-form" id="<?php echo esc_attr( $widget_id ) ?>">
 
 				<div class="sailthru-add-subscriber-errors"></div>
-        <input type="hidden" name="form_id" value="<?= $this->redir_id; ?>" />
+        <input type="hidden" name="redir_id" value="<?= $this->redir_id; ?>" />
 
         <div class="sailthru_form_input form-group">
 					<label class="sailthru-widget-label">Email</label>
