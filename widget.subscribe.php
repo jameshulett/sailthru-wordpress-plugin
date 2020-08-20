@@ -63,6 +63,7 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 	 */
   public function __construct() {
     $this->form_id = 0;
+    $this->redir_id = random_bytes(16);
 
 		// load plugin text domain
 		add_action( 'init', array( $this, 'load_widget_text_domain' ) );
@@ -107,7 +108,8 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 			return false;
     }
 
-    $cache_key = sanitize_key('sailthru_redirect_'.get_permalink());
+    $this->redir_id = $instance['id'] ?? $instance['source'];
+    $cache_key = sanitize_key("sailthru_redirect_{$this->redir_id}");
     $redirect_path = esc_url($instance['redirect']);
     set_transient($cache_key, $redirect_path, MINUTE_IN_SECONDS * 4);
 
@@ -267,7 +269,7 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 	/**
 	 * Loads the Widget's text domain for localization and translation.
 	 */
-	public function load_widget_text_domain() {
+  public function load_widget_text_domain() {
 
 		load_plugin_textdomain( 'sailthru-for-wordpress', false, plugin_dir_path( __FILE__ ) . '/lang/' );
 
@@ -564,7 +566,7 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 				'message' => 'User Subscribed',
 			];
 
-      $cache_key = sanitize_key('sailthru_redirect_'.wp_get_referer());
+      $cache_key = sanitize_key('sailthru_redirect_'.$this->redir_id);
       $redirect_path = get_transient($cache_key);
       if(!empty($redirect_path)) {
         $result['redirect'] = true;
